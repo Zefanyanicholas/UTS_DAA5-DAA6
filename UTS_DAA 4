@@ -1,0 +1,197 @@
+#include <iostream>
+		#include <vector>
+		#include <conio.h>
+		#include <string>
+		
+	
+
+		using namespace std;
+		
+	
+
+		struct Mahasiswa
+		{
+		    Mahasiswa(string& p_nama, string& p_fakultas, string& p_program_studi, int p_nim)
+		    {
+		        nama = p_nama;
+		        fakultas = p_fakultas;
+		        program_studi = p_program_studi;
+		        nomor_induk = p_nim;
+		    }
+		
+	
+
+		    string nama;
+		    string fakultas;
+		    string program_studi;
+		    int nomor_induk;
+		};
+		
+	
+
+		vector<Mahasiswa> data_mahasiswa;
+		
+	
+
+		void selection_sort_ascending()
+		{
+		    int pos;
+		
+	
+
+		    for (int i = 0; i < data_mahasiswa.size() - 1; i++)
+		    {
+		        pos = i;
+		        for (int j = i + 1; j < data_mahasiswa.size(); j++)
+		        {
+		            // Ascending
+		            if (data_mahasiswa[j].nomor_induk < data_mahasiswa[pos].nomor_induk)
+		                pos = j;
+		        }
+		
+	
+
+		        if (pos != i)
+		            swap(data_mahasiswa[pos], data_mahasiswa[i]);
+		    }
+		}
+		
+	
+
+		void selection_sort_descending()
+		{
+		    int pos;
+		
+	
+
+		    for (int i = 0; i < data_mahasiswa.size() - 1; i++)
+		    {
+		        pos = i;
+		        for (int j = i + 1; j < data_mahasiswa.size(); j++)
+		        {
+		            // Descending
+		            if (data_mahasiswa[j].nomor_induk > data_mahasiswa[pos].nomor_induk)
+		                pos = j;
+		        }
+		
+	
+
+		        if (pos != i)
+		            swap(data_mahasiswa[pos], data_mahasiswa[i]);
+		    }
+		}
+		
+	
+
+		void input_data_mahasiswa(string& p_nama, string& p_fakultas, string& p_program_studi)
+		{
+		    int nomor_induk = 211401000 + data_mahasiswa.size();
+		    data_mahasiswa.emplace_back(p_nama, p_fakultas, p_program_studi, nomor_induk);
+		}
+		
+	
+
+		void tampilkan_data_semua_mahasiswa()
+		{
+		    for (int i = 0; i < data_mahasiswa.size(); i++)
+		    {
+		        Mahasiswa& m = data_mahasiswa[i];
+		
+	
+
+		        cout << "--------------------------------" << endl;
+		        cout << "Nama: " << m.nama << endl;
+		        cout << "Fakultas: " << m.fakultas << endl;
+		        cout << "Program Studi: " << m.program_studi << endl;
+		        cout << "NIM: " << m.nomor_induk << endl;
+		        cout << "--------------------------------" << endl;
+		    }
+		}
+		
+	
+
+		int main()
+		{
+		    while (true)
+		    {
+		        cout << "-------- Data Mahasiswa --------" << endl;
+		        cout << "--------------------------------" << endl;
+		        cout << "!(1) Masukkan data mahasiswa    " << endl;
+		        cout << "!(2) Sort data semua mahasiswa (Ascending) " << endl;
+		        cout << "!(3) Sort data semua mahasiswa (Descending)" << endl;
+		        cout << "!(4) Lihat data semua mahasiswa " << endl;
+		        cout << "!(5) Keluar                     " << endl;
+		        cout << "--------------------------------" << endl;
+		
+	
+
+		        cout << "Pilih: ";
+		        int pilih;
+		        cin >> pilih;
+		
+	
+
+		        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		
+	
+
+		        string nama, fakultas, prodi;
+		
+	
+
+		        bool exit = false;
+		
+	
+
+		        switch (pilih)
+		        {
+		        case 1:
+		            system("cls");
+		
+	
+
+		            cout << "Nama: ";
+		            getline(cin, nama);
+		
+	
+
+		            cout << "Fakultas: ";
+		            getline(cin, fakultas);
+		
+	
+
+		            cout << "Program Studi: ";
+		            getline(cin, prodi);
+		
+	
+
+		            input_data_mahasiswa(nama, fakultas, prodi);
+		            break;
+		        case 2:
+		            selection_sort_ascending();
+		            break;
+		        case 3:
+		            selection_sort_descending();
+		            break;
+		        case 4:
+		            system("cls");
+		            tampilkan_data_semua_mahasiswa();
+		            getch();
+		            break;
+		        case 5:
+		            exit = true;
+		            break;
+		        default:
+		            break;
+		        }
+		
+	
+
+		        if (exit)
+		            break;
+		
+	
+
+		        system("cls");
+		    }
+		}
