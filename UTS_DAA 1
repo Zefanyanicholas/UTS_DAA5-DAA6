@@ -1,0 +1,103 @@
+#include <iostream>
+		#include <Windows.h>
+		#include <queue>
+		
+	
+
+		using namespace std;
+		
+	
+
+		/**
+		* Simulasi algoritma scheduling FCFS menggunakan Queue.
+		*/
+		
+	
+
+		struct Proses
+		{
+		    Proses(int id, int waktu_ekse)
+		    {
+		        id_proses = id;
+		        waktu_eksekusi = waktu_ekse;
+		        sisa_detik = waktu_ekse;
+		    }
+		
+	
+
+		    int id_proses;
+		    int waktu_eksekusi;
+		    int sisa_detik;
+		};
+		
+	
+
+		queue<Proses> antrian_proses;
+		int n = 0;
+		
+	
+
+		void add_process(int waktu_eksekusi)
+		{
+		    n++;
+		    antrian_proses.emplace(n, waktu_eksekusi);
+		}
+		
+	
+
+		int main()
+		{
+		    int detik_proses_tiba[3] = { 0, 3, 6 };
+		
+	
+
+		    int detik_berlalu = 0;
+		
+	
+
+		    while (true)
+		    {
+		        cout << "Detik ke-" << detik_berlalu << endl;
+		
+	
+
+		        if (!antrian_proses.empty())
+		        {
+		            antrian_proses.front().sisa_detik--;
+		
+	
+
+		            // Proses sedang berlangsung...
+		
+	
+
+		            if (antrian_proses.front().sisa_detik <= 0)
+		            {
+		                cout << "Proses " << antrian_proses.front().id_proses <<
+		                    " telah selesai dieksekusi pada detik ke-" << detik_berlalu << endl;
+		                antrian_proses.pop();
+		            }
+		        }
+		
+	
+
+		        for (int i = 0; i < sizeof(detik_proses_tiba) / sizeof(int); i++)
+		        {
+		            if (detik_proses_tiba[i] == detik_berlalu)
+		            {
+		                cout << "Suatu proses tiba pada detik ke-" << detik_berlalu << ", input waktu eksekusi (dalam detik): ";
+		                int detik;
+		                cin >> detik;
+		                add_process(detik);
+		            }
+		        }
+		
+	
+
+		        detik_berlalu++;
+		
+	
+
+		        Sleep(1000);
+		    }
+		}
