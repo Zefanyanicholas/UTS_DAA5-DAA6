@@ -1,0 +1,54 @@
+#include <iostream>
+		#include <string>
+		#include <vector>
+		#include <stack>
+		
+	
+
+		using namespace std;
+		
+	
+
+		/**
+		* Pengurutan operasi dalam kurung menggunakan Stack.
+		*/
+		
+	
+
+		int main()
+		{
+		    cout << "Input ekspresi: ";
+		    string ekspresi;
+		    getline(cin, ekspresi);
+		
+	
+
+		    stack<size_t> index_kurung_pembuka;
+		
+	
+
+		    int urutan = 0;
+		
+	
+
+		    cout << endl << "--- Urutan operasi (Descending) ---" << endl << endl;
+		
+	
+
+		    for (size_t i = 0; i < ekspresi.size(); i++)
+		    {
+		        if (ekspresi[i] == '(')
+		        {
+		            index_kurung_pembuka.push(i);
+		        }
+		
+	
+
+		        if (ekspresi[i] == ')')
+		        {
+		           cout << ekspresi.substr(index_kurung_pembuka.top(), i - index_kurung_pembuka.top() + 1) << " = " << urutan << endl;
+		           index_kurung_pembuka.pop();
+		           urutan++;
+		        }
+		    }
+		}
